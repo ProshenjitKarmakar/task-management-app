@@ -1,11 +1,15 @@
-export const setCookie = (cname : any, cvalue : string, exTime : any) => {
+export const setCookie = (cname: any, cvalue: string, exTime: any) => {
     const d = new Date();
     d.setTime(d.getTime() + timeToMillisecond(exTime));
     const expires = 'expires=' + d.toUTCString();
     document.cookie = cname + '=' + btoa(cvalue) + ';' + expires + ';path=/';
 };
 
-export const getCookie = (cname : string | undefined) => {
+export const clearCookie = (key: string) => {
+    document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+};
+
+export const getCookie = (cname: string | undefined) => {
     try {
         const name = cname + '=';
         const ca = document.cookie.split(';');
@@ -18,10 +22,11 @@ export const getCookie = (cname : string | undefined) => {
                 return window.atob(c.substring(name.length, c.length));
             }
         }
-    } catch {}
+    } catch {
+    }
     return '';
 };
-export const timeToMillisecond = (time : any) => {
+export const timeToMillisecond = (time: any) => {
     const number = time.substring(0, time.indexOf(' '));
     switch (time.substr(time.indexOf(' ') + 1)) {
         case 'day':
@@ -37,12 +42,12 @@ export const timeToMillisecond = (time : any) => {
     }
 };
 
-export const checkCookie = (cname : string) => {
+export const checkCookie = (cname: string) => {
     const cookieInfo = getCookie(cname);
     return !!cookieInfo;
 };
 
-export const getCookieLogin = (cname : string) => {
+export const getCookieLogin = (cname: string) => {
     const name = cname + '=';
     const ca = document.cookie.split(';');
     for (let i = 0; i < ca.length; i++) {

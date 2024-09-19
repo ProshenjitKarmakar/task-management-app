@@ -1,23 +1,29 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {IUserInfo} from "./user.interface";
+
 interface UserState {
     isLoading: boolean
+    isSuccess: boolean
 }
 
 const initialState: UserState = {
-    isLoading: false
+    isLoading: false,
+    isSuccess: false,
 }
 
 export const userSlice = createSlice({
     name: 'user',
     initialState: initialState,
     reducers: {
-        attemptLogin: (state) => {
+        attemptLogin: (state, _action: PayloadAction<IUserInfo>) => {
+            console.log("=====attemptLogin==slice===")
             state.isLoading = true;
         },
-        attemptLoginSuccess: (state, action : PayloadAction<boolean>) => {
+        attemptLoginSuccess: (state, action: PayloadAction<IUserInfo>) => {
             state.isLoading = false;
+            state.isSuccess = true;
         },
-        attemptLoginFailed: (state, action: PayloadAction<boolean>) => {
+        attemptLoginFailed: (state) => {
             state.isLoading = false;
         }
     }

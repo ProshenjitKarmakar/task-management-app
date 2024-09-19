@@ -1,16 +1,17 @@
 import React from "react";
-import { Backdrop, CircularProgress } from "@mui/material";
+import {Backdrop, CircularProgress} from "@mui/material";
 import CoreButton from "./CoreButton";
 
 interface LoadingButton {
-    variant :  "contained" | "text" | "outlined" | undefined,
-    size : "large" | "small" | "medium" | undefined,
+    variant: "contained" | "text" | "outlined" | undefined,
+    size: "large" | "small" | "medium" | undefined,
     isLoading: boolean,
     loadingText: string,
-    disabled: boolean,
+    disabled?: boolean,
     children: React.ReactNode,
-    startIcon: string,
+    startIcon?: string,
 }
+
 const LoadingButton = ({
                            variant = "contained",
                            size = "large",
@@ -20,19 +21,20 @@ const LoadingButton = ({
                            children = "",
                            startIcon,
                            ...rest
-                       } : LoadingButton) => {
+                       }: LoadingButton) => {
 
     return (
         <>
             <CoreButton
                 variant={variant}
                 size={size}
+                type={'submit'}
                 disabled={isLoading || disabled}
                 startIcon={
                     isLoading && startIcon ? (
-                        <CircularProgress size={16} color={"inherit"} />
+                        <CircularProgress size={16} color={"inherit"}/>
                     ) : isLoading ? (
-                        <CircularProgress size={16} color={"inherit"} />
+                        <CircularProgress size={16} color={"inherit"}/>
                     ) : (
                         startIcon
                     )
@@ -43,7 +45,7 @@ const LoadingButton = ({
             </CoreButton>
 
             <Backdrop
-                sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}
                 open={isLoading}
                 invisible={true}
             >

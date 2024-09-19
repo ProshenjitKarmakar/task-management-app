@@ -1,5 +1,5 @@
-import { all } from 'redux-saga/effects';
-import userSaga from "./actions/user/userSaga";
+import {all} from 'redux-saga/effects';
+import userSaga from "./actions/user/user.saga";
 import assessmentSaga from "./actions/assessment/assessment.saga";
 import taskSaga from './actions/taskManagement/task.saga';
 

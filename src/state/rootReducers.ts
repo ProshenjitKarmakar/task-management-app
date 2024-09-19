@@ -1,6 +1,6 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import userSlice from "./actions/user/userSlice"
-import { assessmentSlice } from "./actions/assessment/assessment.slice";
+import {combineReducers} from "@reduxjs/toolkit";
+import userSlice from "./actions/user/user.slice"
+import {assessmentSlice} from "./actions/assessment/assessment.slice";
 import taskSlice from "./actions/taskManagement/task.slice";
 // Combine Reducers
 const rootReducer = combineReducers({

@@ -1,23 +1,23 @@
 import AuthenticationLayout from "../components/layout/AuthLayout/AuthenticationLayout";
-import { Navigate } from "react-router-dom";
-import Login from "../components/auth/login";
+import {Navigate} from "react-router-dom";
+import Login from "../components/auth/Login";
 import AssessmentIndex from "../components/assessment/AssessmentIndex";
 
 const AuthenticationRoutes = {
     path: '/public',
-    element: <AuthenticationLayout />,
+    element: <AuthenticationLayout/>,
     children: [
         {
             path: '',
-            element: <Navigate to="login" replace={true} />
+            element: <Navigate to="login" replace={true}/>
         },
         {
             path: 'login',
-            element: <Login />
+            element: <Login/>
         },
         {
             path: 'assessment',
-            element: <AssessmentIndex />
+            element: <AssessmentIndex/>
         },
     ]
 

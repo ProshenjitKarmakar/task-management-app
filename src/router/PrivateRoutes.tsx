@@ -1,20 +1,20 @@
 import AuthenticationLayout from "../components/layout/AuthLayout/AuthenticationLayout";
-import { Navigate } from "react-router-dom";
-import Login from "../components/auth/login";
+import {Navigate} from "react-router-dom";
+import Login from "../components/auth/Login";
 import AssessmentIndex from "../components/assessment/AssessmentIndex";
 import TaskLayout from "../components/layout/TaskLayout/TaskLayout";
 
 const PrivateRoutes = {
     path: '/private',
-    element: <TaskLayout />,
+    element: <TaskLayout/>,
     children: [
         {
             path: 'dashboard',
-            element: <Login />
+            element: <Login/>
         },
         {
             path: 'user-list',
-            element: <AssessmentIndex />
+            element: <AssessmentIndex/>
         },
     ]
 
