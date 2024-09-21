@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import {ChangeEvent, useState} from "react";
 import Box from "@mui/material/Box";
 import {
     Divider,
@@ -12,7 +13,6 @@ import {
     TableRow,
     Typography
 } from "@mui/material";
-import {ChangeEvent, useEffect, useState} from "react";
 import Table from "../../assets/global/Table/Table";
 import BasicWithHeaderModal from "../../assets/global/Modal/BasicWithHeaderModal";
 import TaskModal from "./modal/TaskModal";
@@ -27,6 +27,7 @@ import DeleteModalContent from "../../assets/global/Modal/DeleteModalContent";
 import {selectMyTaskState} from "../../state/actions/taskManagement/task.selector";
 import NotFound from './../../assets/svg/NotFound.svg';
 import Skeleton from "@mui/material/Skeleton";
+import showToaster from "../../helpers/utility/showToaster";
 
 const TaskManagement = () => {
     const {
@@ -40,17 +41,19 @@ const TaskManagement = () => {
         id: 0
     });
 
-    useEffect(() => {
-        dispatch(getMyTasks({
-            page: page,
-            perPage: perPage,
-            searchContent: searchContent,
-            startDate: startDate,
-            endDate: endDate,
-            status: status,
-            priority: priority
-        }));
-    }, []);
+    // useEffect(() => {
+    //     if (content?.length === 0) {
+    //         dispatch(getMyTasks({
+    //             page: page,
+    //             perPage: perPage,
+    //             searchContent: searchContent,
+    //             startDate: startDate,
+    //             endDate: endDate,
+    //             status: status,
+    //             priority: priority
+    //         }));
+    //     }
+    // }, []);
 
     const handleOpenDeleteModal = (id: number) => {
         setDeleteModal({
@@ -77,7 +80,7 @@ const TaskManagement = () => {
                 id: 0
             })
         } else {
-
+            showToaster.error("ID not found!");
         }
 
     }
@@ -93,7 +96,8 @@ const TaskManagement = () => {
             startDate: endDate,
             endDate: startDate,
             status: status,
-            priority: priority
+            priority: priority,
+            from: 'handleChangePage'
         }));
     };
     const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -104,7 +108,8 @@ const TaskManagement = () => {
             startDate: startDate,
             endDate: endDate,
             priority: priority,
-            status: status
+            status: status,
+            from: 'handleChangeRowsPerPage'
         }));
     };
     const handleEdit = (data: IMyTask) => {

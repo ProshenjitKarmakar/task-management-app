@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+
 interface UserState {
     isLoading: boolean
 }
@@ -15,7 +16,7 @@ export const assessmentSlice = createSlice({
             console.log("====attemptDispatch=====");
             state.isLoading = true;
         },
-        attemptDispatchSuccess: (state, action : PayloadAction<boolean>) => {
+        attemptDispatchSuccess: (state, action: PayloadAction<boolean>) => {
             state.isLoading = false;
         },
         attemptDispatchFailed: (state) => {

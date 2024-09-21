@@ -13,10 +13,8 @@ const root = ReactDOM.createRoot(
 root.render(
     <BrowserRouter>
         <Provider store={store}>
-            <React.StrictMode>
-                <App/>
-                <Toaster position='top-right'/>
-            </React.StrictMode>
+            <App/>
+            <Toaster position='top-right'/>
         </Provider>
     </BrowserRouter>
 );

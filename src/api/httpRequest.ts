@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios, {AxiosError, AxiosResponse} from 'axios';
 import {getCookie} from "../helpers/Cookie";
 import ResponseInterface from "../interface/response.interface";
 

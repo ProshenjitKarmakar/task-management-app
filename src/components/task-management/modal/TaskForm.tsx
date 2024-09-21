@@ -9,14 +9,13 @@ import {
     Stack,
     TextField
 } from "@mui/material";
-import {UserPatternValidator} from "../../../helpers/validator/user.validator";
 import {Control, Controller, UseFormSetValue} from "react-hook-form";
 import {IAddMyTask} from "../../../state/actions/taskManagement/task.interface";
 import {useDispatch, useSelector} from "react-redux";
 import {selectMyTaskState} from "../../../state/actions/taskManagement/task.selector";
 import {AppDispatch} from "../../../state/store";
 import {setTaskData} from "../../../state/actions/taskManagement/task.slice";
-import {DatePicker, LocalizationProvider, MobileDateTimePicker} from "@mui/x-date-pickers";
+import {DatePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, {Dayjs} from "dayjs";
 import {TaskPatternValidator} from "../../../helpers/validator/task.validator";

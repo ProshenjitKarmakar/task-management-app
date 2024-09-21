@@ -1,3 +1,4 @@
+import {ChangeEvent} from "react";
 import {
     FormControl,
     InputAdornment,
@@ -10,7 +11,6 @@ import {
 } from "@mui/material";
 import {Search} from "@mui/icons-material";
 import Box from "@mui/material/Box";
-import {ChangeEvent, ReactNode} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "../../state/store";
 import {getMyTasks, setSearchContent} from "../../state/actions/taskManagement/task.slice";
@@ -36,7 +36,8 @@ const TaskManagementHeader = () => {
             startDate: endDate,
             endDate: startDate,
             status: status,
-            priority: priority
+            priority: priority,
+            from: 'handleSearch'
         }));
     }
 
@@ -48,10 +49,11 @@ const TaskManagementHeader = () => {
             startDate: data?._fromDate,
             endDate: data?._toDate,
             status: status,
-            priority: priority
+            priority: priority,
+            from: 'datePickerCallback'
         }));
     };
-    const handleChangeStatus = (e: SelectChangeEvent<"ALL" | "PENDING" | "PROGRESS" | "COMPLETED">, child: ReactNode) => {
+    const handleChangeStatus = (e: SelectChangeEvent<"ALL" | "PENDING" | "PROGRESS" | "COMPLETED">) => {
         const value = e.target.value;
         dispatch(getMyTasks({
             page: page,
@@ -60,11 +62,12 @@ const TaskManagementHeader = () => {
             startDate: startDate,
             endDate: endDate,
             status: value as TStatusAsPayload,
-            priority: priority
+            priority: priority,
+            from: 'handleChangeStatus'
         }));
     }
 
-    const handleChangePriority = (e: SelectChangeEvent<'LOW' | 'MEDIUM' | 'HIGH' | 'ALL'>, child: ReactNode) => {
+    const handleChangePriority = (e: SelectChangeEvent<'LOW' | 'MEDIUM' | 'HIGH' | 'ALL'>) => {
         const value = e.target.value;
         dispatch(getMyTasks({
             page: page,
@@ -73,7 +76,8 @@ const TaskManagementHeader = () => {
             startDate: startDate,
             endDate: endDate,
             status: status as TStatusAsPayload,
-            priority: value as TPriorityAsPayload
+            priority: value as TPriorityAsPayload,
+            from: 'handleChangePriority'
         }));
     }
 

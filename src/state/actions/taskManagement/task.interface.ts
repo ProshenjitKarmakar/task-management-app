@@ -43,4 +43,5 @@ export interface IMyTaskPayload {
     endDate?: string;
     status?: TStatusAsPayload;
     priority?: TPriorityAsPayload;
+    from?: string;
 }

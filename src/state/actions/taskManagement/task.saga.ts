@@ -5,7 +5,9 @@ import MyTaskService from './../../../services/task.service';
 import {IAddMyTask, IMyTaskId, IMyTaskPayload, IUpdateMyTask} from './task.interface';
 import {
     addMyTaskFailed,
-    addMyTaskSuccess, dashboardCountsFailed, dashboardCountsSuccess,
+    addMyTaskSuccess,
+    dashboardCountsFailed,
+    dashboardCountsSuccess,
     deleteMyTasksFailed,
     deleteMyTasksSuccess,
     getMyTasksFailed,

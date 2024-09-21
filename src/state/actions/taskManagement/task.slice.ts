@@ -1,6 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {
-    IAddMyTask, IDashboardCounts,
+    IAddMyTask,
+    IDashboardCounts,
     IMyTask,
     IMyTaskId,
     IMyTaskPayload,
@@ -20,6 +21,8 @@ const initialState = {
         endDate: end,
         priority: 'ALL' as TPriorityAsPayload,
         status: 'ALL' as TStatusAsPayload,
+        page: 1,
+        perPage: 10,
     } as IMyTaskPayload,
     data: {
         id: 0 as number,

@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import {Button, Divider, Stack} from "@mui/material";
 import LoadingButton from "../../../assets/global/button/loadingButton/LoadingButton";
 import {selectMyTaskState} from "../../../state/actions/taskManagement/task.selector";
-import {IAddMyTask, IMyTask} from "../../../state/actions/taskManagement/task.interface";
+import {IAddMyTask} from "../../../state/actions/taskManagement/task.interface";
 import {
     addMyTask,
     resetAddMyTasks,
