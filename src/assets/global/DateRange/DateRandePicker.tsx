@@ -53,7 +53,7 @@ const DateRangeController = ({datePickerCallback}: any) => {
                 isFirstTime: true
             });
         }
-    }, []);
+    }, [datePickerCallback]);
 
 
     const handleDateRangeToggle = () => {

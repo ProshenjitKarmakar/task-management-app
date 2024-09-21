@@ -41,7 +41,7 @@ const Login = () => {
                 navigate('/private/dashboard');
             }
         }
-    }, [isSuccess]);
+    }, [isSuccess, dispatch]);
 
     const handleChecked = (e: ChangeEvent<HTMLInputElement>) => {
         const checked = e.target.checked;
