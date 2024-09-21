@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import httpRequest from "../api/httpRequest";
 import ResponseInterface from "../interface/response.interface";
 import {
@@ -7,7 +8,6 @@ import {
     IMyTaskPayload,
     IUpdateMyTask
 } from "../state/actions/taskManagement/task.interface";
-
 
 class MyTaskService {
     list(body: IMyTaskPayload) {
@@ -31,4 +31,8 @@ class MyTaskService {
     }
 }
 
-export default new MyTaskService();
+// Create an instance of MyTaskService
+const myTaskServiceInstance = new MyTaskService();
+
+// Export the instance
+export default myTaskServiceInstance;

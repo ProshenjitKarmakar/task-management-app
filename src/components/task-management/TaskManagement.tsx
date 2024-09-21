@@ -1,13 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Box from "@mui/material/Box";
 import {
-    Divider, Paper,
+    Divider,
+    Paper,
     Stack,
     TableBody,
     TableCell,
     TableContainer,
     TableHead,
     TablePagination,
-    TableRow, Typography
+    TableRow,
+    Typography
 } from "@mui/material";
 import {ChangeEvent, useEffect, useState} from "react";
 import Table from "../../assets/global/Table/Table";

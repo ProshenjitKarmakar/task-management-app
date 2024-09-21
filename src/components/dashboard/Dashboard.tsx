@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {useEffect} from "react";
 import {Button, Divider, Grid, Stack, Typography} from "@mui/material";
 import Box from "@mui/material/Box";
