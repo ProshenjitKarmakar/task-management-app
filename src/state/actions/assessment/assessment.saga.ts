@@ -1,8 +1,7 @@
-import { all, call, put, takeEvery } from "typed-redux-saga";
-import { ForkEffect } from "redux-saga/effects";
+import {all, call, put, takeEvery} from "typed-redux-saga";
 import AssessmentService from "../../../services/assessment.service";
-import { PayloadAction } from "@reduxjs/toolkit";
-import { attemptDispatchFailed, attemptDispatchSuccess } from "./assessment.slice";
+import {PayloadAction} from "@reduxjs/toolkit";
+import {attemptDispatchFailed, attemptDispatchSuccess} from "./assessment.slice";
 
 function* assessmentWatcher() {
     yield takeEvery("assessment/attemptDispatch", attemptDispatchSaga);
@@ -22,14 +21,6 @@ function* attemptDispatchSaga(action: PayloadAction<any>) {
         console.log('Error: ', err);
         yield put(attemptDispatchFailed());
     }
-}
-
-
-function* fetchResource(resource: string): Generator<ForkEffect<any>, void, any> {
-    console.log("=====fetchResource=====")
-}
-function* fetchResourceTwo(resource: string): Generator<ForkEffect<any>, void, any> {
-    console.log("=====fetchResourceTwo=====")
 }
 
 export default function* assessmentSaga() {
