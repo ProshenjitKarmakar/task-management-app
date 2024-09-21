@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import {Box} from "@mui/material";
+import {Outlet} from "react-router-dom";
 import PrivateLayout from '../PrivateLayout';
 
 const TaskLayout = (): any => {
@@ -8,8 +8,8 @@ const TaskLayout = (): any => {
 
     return (
         <PrivateLayout>
-            <Box>
-                <Outlet />
+            <Box sx={{bgcolor: 'lightgray'}}>
+                <Outlet/>
             </Box>
         </PrivateLayout>
     )

@@ -1,3 +1,3 @@
-import { RootState } from "../../store";
+import {RootState} from "../../store";
 
-export const selectMyListState = (state: RootState) => state.task;
+export const selectMyTaskState = (state: RootState) => state.task;

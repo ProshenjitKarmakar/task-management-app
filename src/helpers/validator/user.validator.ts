@@ -9,7 +9,7 @@ export const UserPatternValidator = {
         },
     },
     password: {
-        required: 'Email should not be empty!',
+        required: 'Password should not be empty!',
         pattern: {
             value: password,
             message: 'Invalid password! Ex. Pa$$w0rd!',

@@ -1,11 +1,20 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IAddMyTask, IMyTask, IMyTaskId, IMyTaskPayload, IUpdateMyTask } from './task.interface';
-import { WithPagination } from '../../../interface/response.interface';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {IAddMyTask, IMyTask, IMyTaskId, IMyTaskPayload, IUpdateMyTask} from './task.interface';
+import {WithPagination} from '../../../interface/response.interface';
+import dayjs from "dayjs";
 
 const initialState = {
     filter: {
         searchContent: '' as string,
     },
+    data: {
+        id: 0 as number,
+        title: '',
+        description: '',
+        dueDate: dayjs(new Date()) as dayjs.Dayjs,
+        priority: 'MEDIUM',
+        status: 'PENDING',
+    } as IMyTask,
     myTask: {
         content: [] as Array<IMyTask>,
         isLoading: false,
@@ -130,6 +139,21 @@ const taskSlice = createSlice({
             state.filter.searchContent = action.payload;
         },
 
+
+        setTaskData: (state, action: PayloadAction<{ fieldName: keyof IAddMyTask; value: string }>) => {
+            const {fieldName, value} = action.payload;
+            if (state.data[fieldName] !== undefined) {
+                (state.data[fieldName] as typeof value) = value;
+            }
+        },
+        setMyTaskData: (state, action: PayloadAction<IMyTask>) => {
+            state.data = {...action.payload};
+        },
+
+        resetTaskData: (state) => {
+            state.data = initialState.data;
+        },
+
         resetMyLists: (state) => {
             state.filter.searchContent = '';
         },
@@ -158,7 +182,10 @@ export const {
     resetDeleteMyTasks,
 
     setMyTaskSearchContent,
-
+    setTaskData,
+    
+    setMyTaskData,
+    resetTaskData,
     resetMyLists,
 } = taskSlice.actions;
 

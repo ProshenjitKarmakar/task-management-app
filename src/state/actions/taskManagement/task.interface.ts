@@ -1,8 +1,10 @@
+import dayjs from "dayjs";
+
 export interface IMyTask {
     id: number;
     title: string;
     description: string;
-    dueDate: string;
+    dueDate: dayjs.Dayjs | string;
     priority: TPriority;
     status: TStatus;
 }
@@ -10,7 +12,7 @@ export interface IMyTask {
 export interface IAddMyTask {
     title: string;
     description: string;
-    dueDate: string;
+    dueDate: dayjs.Dayjs | string;
     priority: TPriority;
     status: TStatus;
 }

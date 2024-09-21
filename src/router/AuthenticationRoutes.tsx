@@ -15,10 +15,6 @@ const AuthenticationRoutes = {
             path: 'login',
             element: <Login/>
         },
-        {
-            path: 'assessment',
-            element: <AssessmentIndex/>
-        },
     ]
 
 }

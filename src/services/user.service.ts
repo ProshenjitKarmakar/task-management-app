@@ -5,7 +5,7 @@ import {IUserInfo} from "../state/actions/user/user.interface";
 
 class UserService {
     login(body: IUserInfo) {
-        return httpRequest.post<ResponseInterface<IUserInfo>>(process.env.VITE_SETTINGS_APP + '/login', body);
+        return httpRequest.post<ResponseInterface<IUserInfo>>(process.env.REACT_APP_NODE_API_BASE_URL + '/auth/login', body);
     }
 }
 

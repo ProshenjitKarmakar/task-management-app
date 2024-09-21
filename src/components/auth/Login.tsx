@@ -1,28 +1,20 @@
-import {Controller, SubmitHandler, useForm} from "react-hook-form";
+import {SubmitHandler, useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "../../state/store";
-import {
-    Box,
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    FormHelperText,
-    Stack,
-    TextField,
-    Typography
-} from "@mui/material";
+import {Box, Stack, Typography} from "@mui/material";
 import {IUserInfo} from "../../state/actions/user/user.interface";
-import {attemptLogin} from "../../state/actions/user/user.slice";
+import {attemptLogin, resetLoginState} from "../../state/actions/user/user.slice";
 import LoadingButton from "../../assets/global/button/loadingButton/LoadingButton";
 import {selectUserState} from "../../state/actions/user/user.selector";
-import {UserPatternValidator} from "../../helpers/validator/user.validator";
 import {ChangeEvent, useEffect, useState} from "react";
 import {clearCookie, getCookie, setCookie} from "../../helpers/Cookie";
 import hasAuthenticatedUser from "../../helpers/utility/hasAuthenticateUser";
 import LoginForm from "./LoginForm";
+import {useNavigate} from "react-router-dom";
 
 const Login = () => {
     const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
     const {isLoading, isSuccess} = useSelector(selectUserState);
     const [rememberMe, setRememberMe] = useState(true);
     const {handleSubmit, setValue, control, reset} = useForm<IUserInfo>();
@@ -40,7 +32,9 @@ const Login = () => {
     useEffect(() => {
         if (isSuccess) {
             if (hasAuthenticatedUser()) {
+                dispatch(resetLoginState());
                 reset();
+                navigate('/private/dashboard');
             }
         }
     }, [isSuccess]);
@@ -73,8 +67,10 @@ const Login = () => {
 
     return (
         <>
-            <Stack width={'100%'} height={'100vh'} justifyContent={'center'} alignItems={'center'}>
-                <Stack spacing={2} p={5} width={'400px'} sx={{border: '2px solid #000', borderRadius: '15px'}}>
+            <Stack bgcolor={'floralwhite'} width={'100%'} height={'100vh'} justifyContent={'center'}
+                   alignItems={'center'}>
+                <Stack bgcolor={'whitesmoke'} spacing={2} p={5} width={'400px'}
+                       sx={{border: '2px solid #000', borderRadius: '15px'}}>
                     <Box textAlign={'center'} width={'100%'}>
                         <Typography variant={'h5'} color={'text.primary'}>
                             Welcome To Login Page
