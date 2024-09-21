@@ -1,6 +1,12 @@
 import httpRequest from "../api/httpRequest";
 import ResponseInterface from "../interface/response.interface";
-import {IAddMyTask, IMyTaskId, IMyTaskPayload, IUpdateMyTask} from "../state/actions/taskManagement/task.interface";
+import {
+    IAddMyTask,
+    IDashboardCounts,
+    IMyTaskId,
+    IMyTaskPayload,
+    IUpdateMyTask
+} from "../state/actions/taskManagement/task.interface";
 
 
 class MyTaskService {
@@ -18,6 +24,10 @@ class MyTaskService {
 
     delete(params: IMyTaskId) {
         return httpRequest.delete<ResponseInterface<IMyTaskId>>(process.env.REACT_APP_NODE_API_BASE_URL + '/task/delete', params);
+    }
+
+    dashboardCount() {
+        return httpRequest.get<ResponseInterface<IDashboardCounts>>(process.env.REACT_APP_NODE_API_BASE_URL + '/task/dashboard/count');
     }
 }
 

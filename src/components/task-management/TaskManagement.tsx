@@ -25,59 +25,9 @@ import {selectMyTaskState} from "../../state/actions/taskManagement/task.selecto
 import NotFound from './../../assets/svg/NotFound.svg';
 import Skeleton from "@mui/material/Skeleton";
 
-const list: IMyTask[] = [
-    {
-        title: 'Title 1',
-        description: 'This is description',
-        status: 'PENDING',
-        dueDate: '2024-09-25T01:52:13+06:00',
-        priority: 'MEDIUM',
-        id: 1
-    },
-    {
-        title: 'Title 2',
-        description: 'This is description 2',
-        status: 'PENDING',
-        dueDate: '2024-10-25T01:52:13+06:00',
-        priority: 'MEDIUM',
-        id: 2
-    },
-    {
-        title: 'Title 3',
-        description: 'This is description 3',
-        status: 'PENDING',
-        dueDate: '2024-09-25T01:52:13+06:00',
-        priority: 'MEDIUM',
-        id: 3
-    },
-    {
-        title: 'Title 4',
-        description: 'This is description 4',
-        status: 'PENDING',
-        dueDate: '2024-09-25T01:52:13+06:00',
-        priority: 'MEDIUM',
-        id: 4
-    },
-    {
-        title: 'Title 5',
-        description: 'This is description',
-        status: 'PENDING',
-        dueDate: '2024-09-25T01:52:13+06:00',
-        priority: 'MEDIUM',
-        id: 5
-    },
-    {
-        title: 'Title 6',
-        description: 'This is description 6',
-        status: 'PENDING',
-        dueDate: '2024-09-25T01:52:13+06:00',
-        priority: 'MEDIUM',
-        id: 6
-    },
-]
 const TaskManagement = () => {
     const {
-        filter: {searchContent, startDate, endDate},
+        filter: {searchContent, startDate, endDate, status, priority},
         myTask: {isLoading, page, perPage, total, content}
     } = useSelector(selectMyTaskState);
     const dispatch = useDispatch<AppDispatch>();
@@ -92,14 +42,12 @@ const TaskManagement = () => {
             page: page,
             perPage: perPage,
             searchContent: searchContent,
-            fromDate: endDate,
-            toDate: startDate
+            startDate: startDate,
+            endDate: endDate,
+            status: status,
+            priority: priority
         }));
     }, []);
-
-    console.log("=====startDate==", startDate);
-    console.log("=====endDate==", endDate);
-
 
     const handleOpenDeleteModal = (id: number) => {
         setDeleteModal({
@@ -139,8 +87,10 @@ const TaskManagement = () => {
             page: newPage + 1,
             perPage: perPage,
             searchContent: searchContent,
-            fromDate: endDate,
-            toDate: startDate
+            startDate: endDate,
+            endDate: startDate,
+            status: status,
+            priority: priority
         }));
     };
     const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -148,8 +98,10 @@ const TaskManagement = () => {
             page: page,
             perPage: Number(event.target.value),
             searchContent: searchContent,
-            fromDate: endDate,
-            toDate: startDate
+            startDate: startDate,
+            endDate: endDate,
+            priority: priority,
+            status: status
         }));
     };
     const handleEdit = (data: IMyTask) => {

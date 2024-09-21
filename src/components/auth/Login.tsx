@@ -19,7 +19,11 @@ const Login = () => {
     const [rememberMe, setRememberMe] = useState(true);
     const {handleSubmit, setValue, control, reset} = useForm<IUserInfo>();
 
+
     useEffect(() => {
+        if (hasAuthenticatedUser()) {
+            navigate('/private/dashboard');
+        }
         const storedEmail = getCookie('email');
         const storedPassword = getCookie('password');
         if (storedEmail && storedPassword) {

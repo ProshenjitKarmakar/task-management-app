@@ -11,8 +11,8 @@ import {enGB} from 'date-fns/locale';
 import {getDurationType, getFormatDataPickerDate, getFormatFromAndToDate} from "../../../helpers/DateRange/rateRange";
 
 
-const startDate = new Date(Date.now() + 3600 * 1000 * 24);
-const endDate = new Date(Date.now() - 3600 * 1000 * 24 * 29);
+const startDate = new Date(Date.now() - 3600 * 1000 * 24);
+const endDate = new Date(Date.now() + 3600 * 1000 * 24 * 29);
 
 const DateRangeController = ({datePickerCallback}: any) => {
     const [datePickerOpen, setDatePickerOpen] = useState(false);

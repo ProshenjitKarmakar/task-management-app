@@ -1,16 +1,26 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {IAddMyTask, IMyTask, IMyTaskId, IMyTaskPayload, IUpdateMyTask} from './task.interface';
+import {
+    IAddMyTask, IDashboardCounts,
+    IMyTask,
+    IMyTaskId,
+    IMyTaskPayload,
+    IUpdateMyTask,
+    TPriorityAsPayload,
+    TStatusAsPayload
+} from './task.interface';
 import {WithPagination} from '../../../interface/response.interface';
 import dayjs from "dayjs";
 
-const start = dayjs(new Date(Date.now() + 3600 * 1000 * 24)).format('YYYY-MM-DD');
-const end = dayjs(new Date(Date.now() - 3600 * 1000 * 24 * 29)).format('YYYY-MM-DD');
+const start = dayjs(new Date(Date.now() - 3600 * 1000 * 24)).format('YYYY-MM-DD');
+const end = dayjs(new Date(Date.now() + 3600 * 1000 * 24 * 29)).format('YYYY-MM-DD');
 const initialState = {
     filter: {
         searchContent: '' as string,
         startDate: start,
         endDate: end,
-    },
+        priority: 'ALL' as TPriorityAsPayload,
+        status: 'ALL' as TStatusAsPayload,
+    } as IMyTaskPayload,
     data: {
         id: 0 as number,
         title: '',
@@ -50,6 +60,12 @@ const initialState = {
         isSuccess: false,
         isError: false,
     },
+    dashboardCount: {
+        data: {} as IDashboardCounts,
+        isLoading: false,
+        isSuccess: false,
+        isError: false,
+    },
 };
 
 const taskSlice = createSlice({
@@ -58,6 +74,7 @@ const taskSlice = createSlice({
     reducers: {
         getMyTasks: (state, _action: PayloadAction<IMyTaskPayload>) => {
             state.myTask.isLoading = true;
+            state.filter = _action.payload;
         },
         getMyTasksSuccess: (state, action: PayloadAction<WithPagination<IMyTask>>) => {
             state.myTask.content = action.payload?.data;
@@ -136,6 +153,23 @@ const taskSlice = createSlice({
             state.deleteTask.isSuccess = false;
         },
 
+        dashboardCounts: (state, _action: PayloadAction<undefined>) => {
+            state.dashboardCount.isLoading = true;
+        },
+        dashboardCountsSuccess: (state, action: PayloadAction<IDashboardCounts>) => {
+            state.dashboardCount.data = action.payload;
+            state.dashboardCount.isLoading = false;
+            state.dashboardCount.isSuccess = true;
+        },
+        dashboardCountsFailed: (state) => {
+            state.dashboardCount.isLoading = false;
+            state.dashboardCount.isError = true;
+        },
+        resetDashboardCounts: (state) => {
+            state.dashboardCount.isSuccess = false;
+            state.dashboardCount.data = {} as IDashboardCounts;
+        },
+
         setMyTaskSearchContent: (state, action: PayloadAction<string>) => {
             state.filter.searchContent = action.payload;
         },
@@ -155,17 +189,17 @@ const taskSlice = createSlice({
             state.filter.searchContent = action.payload.searchContent ?? '';
         },
 
-        setDates: (state, action: PayloadAction<{ fromDate: string, toDate: string }>) => {
-            state.filter.startDate = action.payload.fromDate ?? '';
-            state.filter.endDate = action.payload.toDate ?? '';
-        },
+        // setDates: (state, action: PayloadAction<{ fromDate: string, toDate: string }>) => {
+        //     state.filter.startDate = action.payload.fromDate ?? '';
+        //     state.filter.endDate = action.payload.toDate ?? '';
+        // },
 
         resetTaskData: (state) => {
             state.data = initialState.data;
         },
 
         resetMyLists: (state) => {
-            state.filter.searchContent = '';
+            state.filter = initialState.filter;
             state.myTask = initialState.myTask
         },
     },
@@ -192,11 +226,16 @@ export const {
     deleteMyTasksFailed,
     resetDeleteMyTasks,
 
+    dashboardCounts,
+    dashboardCountsSuccess,
+    dashboardCountsFailed,
+    resetDashboardCounts,
+
     setMyTaskSearchContent,
     setTaskData,
 
     setSearchContent,
-    setDates,
+    // setDates,
     setMyTaskData,
     resetTaskData,
     resetMyLists,
