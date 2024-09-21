@@ -6,7 +6,12 @@ import {Button, Divider, Stack} from "@mui/material";
 import LoadingButton from "../../../assets/global/button/loadingButton/LoadingButton";
 import {selectMyTaskState} from "../../../state/actions/taskManagement/task.selector";
 import {IAddMyTask, IMyTask} from "../../../state/actions/taskManagement/task.interface";
-import {addMyTask, resetTaskData, updateMyTasks} from "../../../state/actions/taskManagement/task.slice";
+import {
+    addMyTask,
+    resetAddMyTasks,
+    resetTaskData,
+    updateMyTasks
+} from "../../../state/actions/taskManagement/task.slice";
 import TaskForm from "./TaskForm";
 import {useEffect} from "react";
 
@@ -18,17 +23,25 @@ interface IProps {
 const TaskModal = ({type = 'ADD', onClose}: IProps) => {
     const dispatch = useDispatch<AppDispatch>();
     const {
-        addTask: {isLoading, isSuccess},
-        data,
+        addTask: {isLoading: addIsLoading, isSuccess: addSuccess},
+        updateTask: {isLoading: updateIsLoading, isSuccess: updateSuccess},
+        data: {title, id, description, dueDate, status, priority},
     } = useSelector(selectMyTaskState);
     const {handleSubmit, setValue, control} = useForm<IAddMyTask>();
 
     useEffect(() => {
         if (type === 'EDIT') {
-            setValue('title', data?.title);
-            setValue('description', data?.description);
+            setValue('title', title);
+            setValue('description', description);
         }
-    }, [data]);
+    }, [title, description]);
+
+    useEffect(() => {
+        if (addSuccess || updateSuccess) {
+            dispatch(resetAddMyTasks());
+            onClose();
+        }
+    }, [addSuccess, updateSuccess]);
 
     useEffect(() => {
         return () => {
@@ -39,20 +52,20 @@ const TaskModal = ({type = 'ADD', onClose}: IProps) => {
     const onSubmit: SubmitHandler<IAddMyTask> = (data) => {
         if (type == 'ADD') {
             dispatch(addMyTask({
-                title: data?.title,
-                description: data?.description,
-                priority: 'LOW',
-                status: 'PENDING',
-                dueDate: ''
+                title: title,
+                description: description,
+                priority: priority,
+                status: status,
+                dueDate: dueDate
             }));
         } else {
             dispatch(updateMyTasks({
-                id: 1,
-                title: data?.title,
-                description: data?.description,
-                priority: 'LOW',
-                status: 'PENDING',
-                dueDate: ''
+                id: id,
+                title: title,
+                description: description,
+                priority: priority,
+                status: status,
+                dueDate: dueDate
             }));
         }
     };
@@ -67,9 +80,9 @@ const TaskModal = ({type = 'ADD', onClose}: IProps) => {
                 </Button>
                 <LoadingButton
                     size={'small'}
-                    loadingText={'Login...'}
-                    disabled={isLoading}
-                    isLoading={isLoading}
+                    loadingText={addIsLoading ? 'Creating...' : 'Updating...'}
+                    disabled={addIsLoading || updateIsLoading}
+                    isLoading={addIsLoading || updateIsLoading}
                     variant="contained"
                 >
                     {type === 'ADD' ? 'Add Task' : 'Update Task'}

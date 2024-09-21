@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ChangeEvent, MouseEventHandler} from "react";
 import {Backdrop, CircularProgress} from "@mui/material";
 import CoreButton from "./CoreButton";
 

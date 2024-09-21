@@ -3,9 +3,13 @@ import {IAddMyTask, IMyTask, IMyTaskId, IMyTaskPayload, IUpdateMyTask} from './t
 import {WithPagination} from '../../../interface/response.interface';
 import dayjs from "dayjs";
 
+const start = dayjs(new Date(Date.now() + 3600 * 1000 * 24)).format('YYYY-MM-DD');
+const end = dayjs(new Date(Date.now() - 3600 * 1000 * 24 * 29)).format('YYYY-MM-DD');
 const initialState = {
     filter: {
         searchContent: '' as string,
+        startDate: start,
+        endDate: end,
     },
     data: {
         id: 0 as number,
@@ -20,11 +24,9 @@ const initialState = {
         isLoading: false,
         isError: false,
         error: '',
-        count: 0,
-        currentPage: 1,
-        limit: 10,
-        nextPage: 0,
-        totalPages: 1,
+        total: 0,
+        page: 1,
+        perPage: 10,
     },
     addTask: {
         content: {} as IAddMyTask,
@@ -55,15 +57,13 @@ const taskSlice = createSlice({
     initialState,
     reducers: {
         getMyTasks: (state, _action: PayloadAction<IMyTaskPayload>) => {
-            console.log("=====getMyTasks==Slice===", _action);
-
             state.myTask.isLoading = true;
         },
         getMyTasksSuccess: (state, action: PayloadAction<WithPagination<IMyTask>>) => {
             state.myTask.content = action.payload?.data;
-            state.myTask.currentPage = action.payload.extraData.currentPage;
-            state.myTask.limit = action.payload.extraData?.totalPages;
-            state.myTask.count = action.payload.extraData.total || 0;
+            state.myTask.page = action.payload?.extraData?.page || 1;
+            state.myTask.perPage = action.payload?.extraData?.perPage || 10;
+            state.myTask.total = action.payload?.extraData?.total || 0;
             state.myTask.isLoading = false;
         },
         getMyTasksFailed: (state) => {
@@ -88,6 +88,7 @@ const taskSlice = createSlice({
         },
         resetAddMyTasks: (state) => {
             state.addTask.isSuccess = false;
+            state.updateTask.isSuccess = false;
         },
 
         updateMyTasks: (state, _action: PayloadAction<IUpdateMyTask>) => {
@@ -121,7 +122,7 @@ const taskSlice = createSlice({
             state.deleteTask.isLoading = true;
         },
         deleteMyTasksSuccess: (state, action: PayloadAction<IMyTaskId>) => {
-            if (action.payload.id) {
+            if (action.payload?.id) {
                 state.myTask.content = state.myTask.content?.filter((item) => item.id !== action.payload.id);
             }
             state.deleteTask.isLoading = false;
@@ -150,12 +151,22 @@ const taskSlice = createSlice({
             state.data = {...action.payload};
         },
 
+        setSearchContent: (state, action: PayloadAction<{ searchContent: string }>) => {
+            state.filter.searchContent = action.payload.searchContent ?? '';
+        },
+
+        setDates: (state, action: PayloadAction<{ fromDate: string, toDate: string }>) => {
+            state.filter.startDate = action.payload.fromDate ?? '';
+            state.filter.endDate = action.payload.toDate ?? '';
+        },
+
         resetTaskData: (state) => {
             state.data = initialState.data;
         },
 
         resetMyLists: (state) => {
             state.filter.searchContent = '';
+            state.myTask = initialState.myTask
         },
     },
 });
@@ -183,7 +194,9 @@ export const {
 
     setMyTaskSearchContent,
     setTaskData,
-    
+
+    setSearchContent,
+    setDates,
     setMyTaskData,
     resetTaskData,
     resetMyLists,

@@ -7,7 +7,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.16.7",
     "@mui/material": "^5.14.10",
-    "@mui/x-date-pickers": "^7.17.0",
+    "@mui/x-date-pickers": "^7.18.0",
     "@redux-saga/types": "^1.2.1",
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.17.0",
@@ -18,8 +18,10 @@
     "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
     "axios": "^1.5.0",
+    "date-fns": "^3.6.0",
     "dayjs": "^1.11.13",
     "react": "^18.2.0",
+    "react-date-range": "^2.0.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.53.0",
     "react-redux": "^8.1.2",
@@ -53,5 +55,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-date-range": "^1.4.9"
   }
 }

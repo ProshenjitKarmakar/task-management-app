@@ -13,7 +13,6 @@ import {
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {UserPatternValidator} from "../../helpers/validator/user.validator";
 import {IUserInfo} from "../../state/actions/user/user.interface";
-import {VisibilityOff} from "@mui/icons-material";
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 interface IProps {

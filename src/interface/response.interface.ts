@@ -5,8 +5,8 @@ export interface WithPagination<T> {
     data: T[];
     extraData: {
         total: number;
-        totalPages: number;
-        currentPage: number;
+        page: number;
+        perPage: number;
     };
 }
 

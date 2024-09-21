@@ -40,7 +40,6 @@ const TaskForm = ({control, setValue}: IProps) => {
 
     const handleDatePicker = (value: Dayjs | null) => {
         const date = dayjs(value).format();
-        console.log("===date======");
         handleState('dueDate', date);
     }
 

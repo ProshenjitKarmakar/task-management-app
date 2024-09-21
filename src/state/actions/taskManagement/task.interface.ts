@@ -31,4 +31,6 @@ export interface IMyTaskPayload {
     searchContent: string;
     page?: number;
     perPage?: number;
+    fromDate?: string;
+    toDate?: string;
 }

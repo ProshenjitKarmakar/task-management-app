@@ -11,7 +11,7 @@ const PrivateLayout = ({children}: IProps): any => {
     const navigate = useNavigate();
 
     const handleBackToLogin = () => {
-        navigate('/public/login');
+        navigate('/login');
     }
 
     if (hasAuthenticatedUser()) {

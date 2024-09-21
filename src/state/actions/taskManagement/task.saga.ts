@@ -1,9 +1,18 @@
-import { PayloadAction } from '@reduxjs/toolkit';
-import { takeLatest } from 'redux-saga/effects';
-import { all, call, debounce, put } from 'typed-redux-saga';
+import {PayloadAction} from '@reduxjs/toolkit';
+import {takeLatest} from 'redux-saga/effects';
+import {all, call, debounce, put} from 'typed-redux-saga';
 import MyTaskService from './../../../services/task.service';
-import { IAddMyTask, IMyTaskId, IMyTaskPayload, IUpdateMyTask } from './task.interface';
-import { addMyTaskFailed, addMyTaskSuccess, deleteMyTasksFailed, deleteMyTasksSuccess, getMyTasksFailed, getMyTasksSuccess, updateMyTasksFailed, updateMyTasksSuccess } from './task.slice';
+import {IAddMyTask, IMyTaskId, IMyTaskPayload, IUpdateMyTask} from './task.interface';
+import {
+    addMyTaskFailed,
+    addMyTaskSuccess,
+    deleteMyTasksFailed,
+    deleteMyTasksSuccess,
+    getMyTasksFailed,
+    getMyTasksSuccess,
+    updateMyTasksFailed,
+    updateMyTasksSuccess
+} from './task.slice';
 
 function* taskWatcher() {
     yield takeLatest('task/addMyTask', addMyTaskSaga);
@@ -13,8 +22,6 @@ function* taskWatcher() {
 }
 
 function* getMyTasksSaga(action: PayloadAction<IMyTaskPayload>) {
-    console.log("=====getMyTasksSaga===", action);
-
     try {
         const response = yield* call(MyTaskService.list, action.payload);
 
@@ -46,7 +53,6 @@ function* addMyTaskSaga(action: PayloadAction<IAddMyTask>) {
 }
 
 function* updateMyTasksSaga(action: PayloadAction<IUpdateMyTask>) {
-    console.log("=====getMyTasksSaga===", action);
     try {
         const response = yield* call(MyTaskService.update, action.payload);
 
