@@ -14,7 +14,7 @@ const Error501 = () => {
             <Box>
                 <Typography variant="h3">Error 501: Unauthorized</Typography>
                 <Typography variant="body1" color="text.secondary" mb={3}>
-                    Please try again or contact us if it isn’t fixed
+                    No Routes Found in this name
                 </Typography>
 
                 <Link component={RouterLink} to="/login" underline="none">

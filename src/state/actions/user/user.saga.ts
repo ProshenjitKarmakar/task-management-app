@@ -31,7 +31,7 @@ function* attemptLoginSaga(action: PayloadAction<IUserInfo>) {
     } catch (err) {
         console.log('Error: ', err);
         yield put(attemptLoginFailed());
-        showToaster.error('Login failed!');
+        showToaster.error('Login failed!', __id);
     }
 }
 
