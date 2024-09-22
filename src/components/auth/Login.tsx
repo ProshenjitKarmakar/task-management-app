@@ -57,14 +57,14 @@ const Login = () => {
             setCookie('email', data?.email, '365 day');
             setCookie('password', data?.password, '365 day');
             dispatch(attemptLogin({
-                email: data?.email,
+                email: data?.email.toLowerCase(),
                 password: data?.password
             }));
         } else {
             clearCookie('email');
             clearCookie('password');
             dispatch(attemptLogin({
-                email: data?.email,
+                email: data?.email.toLowerCase(),
                 password: data?.password
             }));
         }

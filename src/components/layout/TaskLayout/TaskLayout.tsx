@@ -7,15 +7,16 @@ import {clearCookie} from "../../../helpers/Cookie";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "../../../state/store";
 import {resetDashboardCounts, resetMyLists} from "../../../state/actions/taskManagement/task.slice";
+import showToaster from "../../../helpers/utility/showToaster";
 
 const TaskLayout = (): any => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     const handleLogout = () => {
-        console.log("====handleLogout=====");
         clearCookie(process.env.REACT_APP_ACCESS_TOKEN as string);
-        dispatch(resetMyLists())
+        dispatch(resetMyLists());
         dispatch(resetDashboardCounts());
+        showToaster.success('Successfully Logout!');
         navigate('/login');
     }
 

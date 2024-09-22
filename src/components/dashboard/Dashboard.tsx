@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "../../state/store";
 import {selectMyTaskState} from "../../state/actions/taskManagement/task.selector";
-import {dashboardCounts} from "../../state/actions/taskManagement/task.slice";
+import {dashboardCounts, resetDashboardCounts} from "../../state/actions/taskManagement/task.slice";
 import Skeleton from "@mui/material/Skeleton";
 
 const Dashboard = () => {
@@ -21,6 +21,10 @@ const Dashboard = () => {
     useEffect(() => {
         if (Object.keys(data)?.length === 0) {
             dispatch(dashboardCounts())
+        }
+
+        return () => {
+            dispatch(resetDashboardCounts());
         }
     }, [])
 

@@ -1,5 +1,5 @@
 import {IMyTask} from "../../../state/actions/taskManagement/task.interface";
-import {Stack, TableCell, TableRow} from "@mui/material";
+import {Chip, Stack, TableCell, TableRow} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -15,11 +15,47 @@ interface IProps {
 const TaskListTableRow = ({tableData, handleEdit, handleDelete}: IProps) => {
     return (
         <TableRow>
-            <TableCell> {tableData?.title ?? ''} </TableCell>
-            <TableCell>{tableData?.description ?? ''}</TableCell>
+            <TableCell sx={{
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                maxWidth: '150px' // Adjust based on your layout
+            }}> {tableData?.title ?? ''} </TableCell>
+            <TableCell sx={{
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                maxWidth: '150px' // Adjust based on your layout
+            }}>{tableData?.description ?? ''}</TableCell>
             <TableCell>{dayjs(tableData?.dueDate).format('DD MMM YYYY') ?? ''}</TableCell>
-            <TableCell>{tableData?.priority ?? ''}</TableCell>
-            <TableCell>{tableData?.status ?? ''}</TableCell>
+            <TableCell>
+                {
+                    (() => {
+                        switch (tableData?.priority) {
+                            case 'LOW' :
+                                return <Chip label="Low" color="warning"/>
+                            case 'MEDIUM' :
+                                return <Chip label="Medium" color="primary"/>
+                            case 'HIGH' :
+                                return <Chip label="High" color="success"/>
+                        }
+                    })()
+                }
+            </TableCell>
+            <TableCell>
+                {
+                    (() => {
+                        switch (tableData?.status) {
+                            case 'PENDING' :
+                                return <Chip label="Pending" color="warning"/>
+                            case 'PROGRESS' :
+                                return <Chip label="Progress" color="primary"/>
+                            case 'COMPLETED' :
+                                return <Chip label="Completed" color="success"/>
+                        }
+                    })()
+                }
+            </TableCell>
             <TableCell>
                 <Stack direction={'row'} alignItems={'center'} spacing={1}>
                     <IconButton size={'small'} onClick={() => handleEdit(tableData)}>

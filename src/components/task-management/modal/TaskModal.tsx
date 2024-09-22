@@ -14,6 +14,7 @@ import {
 } from "../../../state/actions/taskManagement/task.slice";
 import TaskForm from "./TaskForm";
 import {useEffect} from "react";
+import showToaster from "../../../helpers/utility/showToaster";
 
 interface IProps {
     type: 'ADD' | 'EDIT',
@@ -50,6 +51,18 @@ const TaskModal = ({type = 'ADD', onClose}: IProps) => {
     }, []);
 
     const onSubmit: SubmitHandler<IAddMyTask> = (data) => {
+        if (dueDate === 'Invalid Date') {
+            showToaster.error('Please select a date');
+            return;
+        }
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const formattedDueDate = new Date(dueDate as string);
+        formattedDueDate.setHours(0, 0, 0, 0);
+        if (formattedDueDate < today) {
+            showToaster.error('You cann\'t select a previous day');
+            return;
+        }
         if (type == 'ADD') {
             dispatch(addMyTask({
                 title: title,

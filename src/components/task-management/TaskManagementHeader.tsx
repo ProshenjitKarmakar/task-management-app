@@ -37,7 +37,6 @@ const TaskManagementHeader = () => {
             endDate: startDate,
             status: status,
             priority: priority,
-            from: 'handleSearch'
         }));
     }
 
@@ -50,7 +49,6 @@ const TaskManagementHeader = () => {
             endDate: data?._toDate,
             status: status,
             priority: priority,
-            from: 'datePickerCallback'
         }));
     };
     const handleChangeStatus = (e: SelectChangeEvent<"ALL" | "PENDING" | "PROGRESS" | "COMPLETED">) => {
@@ -63,7 +61,6 @@ const TaskManagementHeader = () => {
             endDate: endDate,
             status: value as TStatusAsPayload,
             priority: priority,
-            from: 'handleChangeStatus'
         }));
     }
 
@@ -77,7 +74,6 @@ const TaskManagementHeader = () => {
             endDate: endDate,
             status: status as TStatusAsPayload,
             priority: value as TPriorityAsPayload,
-            from: 'handleChangePriority'
         }));
     }
 
@@ -90,6 +86,7 @@ const TaskManagementHeader = () => {
                         placeholder={'Search...'}
                         fullWidth
                         disabled
+                        sx={{display: 'none'}}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position='start'>
@@ -100,11 +97,12 @@ const TaskManagementHeader = () => {
                         value={searchContent}
                         onChange={handleSearch}
                     />
-                    <FormControl fullWidth>
+                    <FormControl fullWidth sx={{width: '160px'}}>
                         <InputLabel id="demo-simple-select-label">Select Status</InputLabel>
                         <Select
                             size={'small'}
                             value={status}
+                            fullWidth
                             label="Select Status"
                             onChange={handleChangeStatus}
                         >
@@ -114,10 +112,11 @@ const TaskManagementHeader = () => {
                             <MenuItem value={'COMPLETED'}>Completed</MenuItem>
                         </Select>
                     </FormControl>
-                    <FormControl fullWidth>
+                    <FormControl fullWidth sx={{width: '160px'}}>
                         <InputLabel id="demo-simple-select-label">Select Priority</InputLabel>
                         <Select
                             size={'small'}
+                            fullWidth
                             value={priority}
                             label={'Select Priority'}
                             onChange={handleChangePriority}

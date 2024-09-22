@@ -93,14 +93,14 @@ const taskSlice = createSlice({
         },
 
         addMyTask: (state, _action: PayloadAction<IAddMyTask>) => {
-            console.log("=====addMyTask==Slice==", _action);
-
             state.addTask.isLoading = true;
         },
         addMyTaskSuccess: (state, action: PayloadAction<IMyTask>) => {
-            state.myTask.content = [...state.myTask.content, action.payload];
+            state.myTask.content?.unshift(action.payload);
             state.addTask.isLoading = false;
             state.addTask.isSuccess = true;
+            state.myTask.total += 1;
+            state.myTask.perPage += 1;
         },
         addMyTaskFailed: (state) => {
             state.addTask.isLoading = false;
@@ -147,6 +147,8 @@ const taskSlice = createSlice({
             }
             state.deleteTask.isLoading = false;
             state.deleteTask.isSuccess = true;
+            state.myTask.total -= 1;
+            state.myTask.perPage -= 1;
         },
         deleteMyTasksFailed: (state) => {
             state.deleteTask.isLoading = false;
@@ -191,11 +193,6 @@ const taskSlice = createSlice({
         setSearchContent: (state, action: PayloadAction<{ searchContent: string }>) => {
             state.filter.searchContent = action.payload.searchContent ?? '';
         },
-
-        // setDates: (state, action: PayloadAction<{ fromDate: string, toDate: string }>) => {
-        //     state.filter.startDate = action.payload.fromDate ?? '';
-        //     state.filter.endDate = action.payload.toDate ?? '';
-        // },
 
         resetTaskData: (state) => {
             state.data = initialState.data;

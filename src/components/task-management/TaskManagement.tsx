@@ -41,20 +41,6 @@ const TaskManagement = () => {
         id: 0
     });
 
-    // useEffect(() => {
-    //     if (content?.length === 0) {
-    //         dispatch(getMyTasks({
-    //             page: page,
-    //             perPage: perPage,
-    //             searchContent: searchContent,
-    //             startDate: startDate,
-    //             endDate: endDate,
-    //             status: status,
-    //             priority: priority
-    //         }));
-    //     }
-    // }, []);
-
     const handleOpenDeleteModal = (id: number) => {
         setDeleteModal({
             open: true,
@@ -74,7 +60,6 @@ const TaskManagement = () => {
             dispatch(deleteMyTasks({
                 id: deleteModal.id
             }));
-
             setDeleteModal({
                 open: false,
                 id: 0
@@ -97,7 +82,6 @@ const TaskManagement = () => {
             endDate: startDate,
             status: status,
             priority: priority,
-            from: 'handleChangePage'
         }));
     };
     const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -109,7 +93,6 @@ const TaskManagement = () => {
             endDate: endDate,
             priority: priority,
             status: status,
-            from: 'handleChangeRowsPerPage'
         }));
     };
     const handleEdit = (data: IMyTask) => {
@@ -120,7 +103,7 @@ const TaskManagement = () => {
     }
 
     return (
-        <Stack sx={{bgcolor: 'whitesmoke', overflowY: 'scroll'}} p={5} height={'90vh'}>
+        <Stack sx={{bgcolor: 'whitesmoke'}} p={5} height={'100vh'}>
             <TaskManagementTitle/>
             <Divider light sx={{my: 2}} color={'blueviolet'}/>
             <TaskManagementHeader/>
@@ -208,7 +191,6 @@ const TaskManagement = () => {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Box>
-
 
             <BasicWithHeaderModal
                 modalTitle={'Update Task'}
